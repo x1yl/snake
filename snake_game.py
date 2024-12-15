@@ -65,10 +65,10 @@ class Food:
         rect = pygame.Rect(self.position[0] * BOX_SIZE, self.position[1] * BOX_SIZE, BOX_SIZE, BOX_SIZE)
         surface.blit(self.image, rect)
 
-def draw_background(surface):
+def draw_background(surface): 
     for y in range(GRID_HEIGHT):
         for x in range(GRID_WIDTH):
-            color = (173, 216, 230) if (x + y) % 2 == 0 else (0, 0, 139)
+            color = (144, 238, 144) if (x + y) % 2 == 0 else (34, 139, 34)
             rect = pygame.Rect(x * BOX_SIZE, y * BOX_SIZE, BOX_SIZE, BOX_SIZE)
             pygame.draw.rect(surface, color, rect)
 
