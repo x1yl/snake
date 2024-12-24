@@ -193,9 +193,9 @@ async def main():
         return
 
     while True:
-        pygame.mixer.music.set_volume(0.25)
         pygame.mixer.music.load(BACKGROUND_MUSIC)
         pygame.mixer.music.play(-1)
+        pygame.mixer.music.set_volume(0.25)
         snake = Snake()
         food = Food()
         game_running = True
