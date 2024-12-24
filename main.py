@@ -10,6 +10,7 @@ SCREEN_WIDTH = ((pygame.display.Info().current_w // BOX_SIZE) - 1) * BOX_SIZE
 SCREEN_HEIGHT = ((pygame.display.Info().current_h // BOX_SIZE) - 1) * BOX_SIZE
 GRID_WIDTH = SCREEN_WIDTH // BOX_SIZE
 GRID_HEIGHT = SCREEN_HEIGHT // BOX_SIZE
+score = 0
 
 class Snake:
     def __init__(self):
@@ -59,9 +60,12 @@ class Food:
         random_image = random.choice(images)
         return pygame.image.load(os.path.join(assets_folder, random_image))
 
-    def randomize_position(self):
-        self.position = (random.randint(0, GRID_WIDTH - 1), random.randint(0, GRID_HEIGHT - 1))
-
+    def randomize_position(self, snake_positions):
+        while True:
+            new_pos = (random.randint(0, GRID_WIDTH - 1), random.randint(0, GRID_HEIGHT - 1))
+            if new_pos not in snake_positions:
+                self.position = new_pos
+                break
     def draw(self, surface):
         self.image = pygame.transform.scale(self.load_random_image(), (BOX_SIZE, BOX_SIZE))
         rect = pygame.Rect(self.position[0] * BOX_SIZE, self.position[1] * BOX_SIZE, BOX_SIZE, BOX_SIZE)
@@ -96,11 +100,12 @@ async def start_screen(screen):
                     return True
         await asyncio.sleep(0)
 
-async def lost_screen(screen, message):
+async def lost_screen(screen, message, score):
     while True:
         screen.fill((0, 0, 0))
-        draw_text(screen, message, 64, (255, 0, 0), (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 - 50))
-        draw_text(screen, "Press ENTER or SPACE to restart", 64, (255, 255, 255), (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 50))
+        draw_text(screen, message, 64, (255, 0, 0), (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 - 100))
+        draw_text(screen, f"Final Score: {score}", 64, (255, 255, 255), (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2))
+        draw_text(screen, "Press ENTER or SPACE to restart", 64, (255, 255, 255), (SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 100))
         pygame.display.flip()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -116,6 +121,7 @@ async def lost_screen(screen, message):
 async def main():
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     clock = pygame.time.Clock()
+    font = pygame.font.Font(None, 36)
 
     if not await start_screen(screen):
         return
@@ -124,6 +130,7 @@ async def main():
         snake = Snake()
         food = Food()
         game_running = True
+        score = 0
 
         while game_running:
             for event in pygame.event.get():
@@ -144,20 +151,21 @@ async def main():
             except ValueError as e:
                 print(e)
                 game_running = False
-                if not await lost_screen(screen, str(e)):
+                if not await lost_screen(screen, str(e), score):
                     return
 
             if snake.positions[0] == food.position:
+                score += 1
                 snake.grow_snake()
-                food.randomize_position()
+                food.randomize_position(snake.positions)
 
             draw_background(screen)
             snake.draw(screen)
             food.draw(screen)
+            score_text = font.render(f'Score: {score}', True, (0, 0, 0))
+            screen.blit(score_text, (10, 10))
             pygame.display.flip()
             clock.tick(10)
             await asyncio.sleep(0)
-
-    pygame.quit()
 
 asyncio.run(main())
