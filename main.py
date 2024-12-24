@@ -15,7 +15,7 @@ score = 0
 
 EAT_SOUND = pygame.mixer.Sound(os.path.join("assets", "eat.ogg"))
 LOSE_SOUND = pygame.mixer.Sound(os.path.join("assets", "lose.ogg"))
-LOSE_SOUND.set_volume(0.3)
+LOSE_SOUND.set_volume(0.25)
 BACKGROUND_MUSIC = pygame.mixer.Sound(os.path.join("assets", "monday.ogg"))
 BACKGROUND_MUSIC.set_volume(0.25)
 
