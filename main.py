@@ -16,7 +16,8 @@ score = 0
 EAT_SOUND = pygame.mixer.Sound(os.path.join("assets", "eat.ogg"))
 LOSE_SOUND = pygame.mixer.Sound(os.path.join("assets", "lose.ogg"))
 LOSE_SOUND.set_volume(0.3)
-BACKGROUND_MUSIC = os.path.join("assets", "monday.ogg")
+BACKGROUND_MUSIC = pygame.mixer.Sound(os.path.join("assets", "monday.ogg"))
+BACKGROUND_MUSIC.set_volume(0.25)
 
 
 class Snake:
@@ -144,7 +145,7 @@ async def start_screen(screen):
 
 
 async def lost_screen(screen, message, score):
-    pygame.mixer.music.stop()
+    BACKGROUND_MUSIC.stop()
     LOSE_SOUND.play()
     while True:
         screen.fill((0, 0, 0))
@@ -193,9 +194,7 @@ async def main():
         return
 
     while True:
-        pygame.mixer.music.load(BACKGROUND_MUSIC)
-        pygame.mixer.music.play(-1)
-        pygame.mixer.music.set_volume(0.25)
+        BACKGROUND_MUSIC.play(-1)
         snake = Snake()
         food = Food()
         game_running = True
