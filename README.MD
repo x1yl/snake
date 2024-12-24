@@ -35,9 +35,9 @@
   <a href="#Snake">About</a> &#xa0; | &#xa0; 
   <a href="#features">Features</a> &#xa0; | &#xa0;
   <a href="#Installation">Installation</a> &#xa0; | &#xa0;
-  <a href="#Usage-(Web)">Usage (Web)</a> &#xa0; | &#xa0;
-  <a href="#Usage-(Exe)">Usage (Exe)</a> &#xa0; | &#xa0;
-  <a href="#Usage-(Python)">Usage (Python)</a> &#xa0; | &#xa0;
+  <a href="#Usage-Web">Usage (Web)</a> &#xa0; | &#xa0;
+  <a href="#Usage-Exe">Usage (Exe)</a> &#xa0; | &#xa0;
+  <a href="#Usage-Python">Usage (Python)</a> &#xa0; | &#xa0;
   <a href="#preview">Image Preview</a> &#xa0; | &#xa0;
   <a href="#license">License</a> &#xa0; | &#xa0;
   <a href="https://github.com/x1yl" target="_blank">Author</a>
@@ -51,9 +51,9 @@ This project is my take on a snake game such as the one seen on Google. It has m
 
 - [Features](#features)
 - [Installation](#installation)
-- [Usage (Web)](#usage-(web))
-- [Usage (Exe)](#usage-(exe))
-- [Usage (Python)](#usage-(python))
+- [Usage (Web)](#usage-web)
+- [Usage (Exe)](#usage-exe)
+- [Usage (Python)](#usage-python)
 - [Image Preview](#preview)
 - [License](#license)
 
